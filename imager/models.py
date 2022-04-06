@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 import uuid
+import datetime
 
 #upload image with unique filename according to user
 def userPath(instance, filename):
@@ -14,6 +15,9 @@ class Imager(models.Model):
     description = models.CharField(max_length=10000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=userPath)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
+
 
     def save(self, *args, **kwargs):
         super(Imager, self).save(*args, **kwargs) # Save image

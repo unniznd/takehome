@@ -4,4 +4,4 @@ from .models import Imager
 
 @admin.register(Imager)
 class ImagerAdmin(admin.ModelAdmin):
-    list_display = ['name','description','user','image']
+    list_display = ['name','description','user','image','date','time']

@@ -1,17 +1,35 @@
-from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 
-
+from imager.pagination import ImagerPagination
+from imager.models import Imager
 from imager.serializer import ImagerSerializer
 
 
-class ImagerView(APIView):
+
+class ImagerView(ListAPIView):
+    query_set = Imager.objects.all()
     serializer_class = ImagerSerializer
     permission_classes = (IsAuthenticated,) 
+    pagination_class = ImagerPagination
+
+    def get(self,request, id = None):
+
+        if id:
+            imager = Imager.objects.filter(user=request.user,id=id)
+            imagerSerializer = ImagerSerializer(imager,many=True)
+            
+            return Response(imagerSerializer.data,status=status.HTTP_200_OK)
+            
+        imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
+        imagerSerializer = ImagerSerializer(imager,many=True)
+
+        return self.get_paginated_response(imagerSerializer.data,)
+
 
     #Accept post request
     #Return id of upload
@@ -44,7 +62,7 @@ class Login(ObtainAuthToken):
             'user_id': user.pk,
         })
 
-class Logout(APIView):
+class Logout(ListAPIView):
     permission_classes = (IsAuthenticated,) 
     def post(self, request, format=None):
         
