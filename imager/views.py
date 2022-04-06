@@ -9,6 +9,28 @@ from rest_framework.permissions import IsAuthenticated
 from imager.serializer import ImagerSerializer
 
 
+class ImagerView(APIView):
+    serializer_class = ImagerSerializer
+    permission_classes = (IsAuthenticated,) 
+
+    #Accept post request
+    #Return id of upload
+    def post(self,request, *args, **kwargs):
+        postData = ImagerSerializer(
+            data = request.data,
+            context={
+                'request': request
+            }
+        )
+        postData.is_valid()
+        postData.save()
+        if postData.is_valid():
+            p = postData.save()
+            return Response({"id":p.id},status=status.HTTP_201_CREATED)
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 class Login(ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
@@ -21,26 +43,6 @@ class Login(ObtainAuthToken):
             'token': token.key,
             'user_id': user.pk,
         })
-
-
-
-class ImagerView(APIView):
-    serializer_class = ImagerSerializer
-
-    #Accept post request
-    #Return id of upload
-    def post(self,request, *args, **kwargs):
-        data = request.data
-        print(request.user)
-        data['user'] = request.user
-        postData = ImagerSerializer(data = request.data)
-        
-        if postData.is_valid():
-            p = postData.save()
-            return Response({"id":p.id},status=status.HTTP_201_CREATED)
-        
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
 
 class Logout(APIView):
     permission_classes = (IsAuthenticated,) 
