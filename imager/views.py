@@ -44,9 +44,7 @@ class ImagerView(ListAPIView):
                 'request': request
             }
         )
-        print(request.data)
-        postData.is_valid()
-        postData.save()
+ 
         if postData.is_valid():
             p = postData.save()
             return Response({"id":p.id},status=status.HTTP_201_CREATED)
@@ -58,7 +56,6 @@ class ImagerView(ListAPIView):
 def mediaAccess(request,userId,fileName):
     if request.user.id == userId:
         path = "media/"+str(userId)+"/"+fileName
-        print(path)
 
         try:
             with open(path,'rb') as file:

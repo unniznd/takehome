@@ -25,9 +25,15 @@ class Imager(models.Model):
 
 
     def save(self, *args, **kwargs):
-        print(self.image)
-        super(Imager, self).save(*args, **kwargs) # Save image
-        img_read = storage.open(self.image.name,"r")
+        
+        super(Imager, self).save(*args, **kwargs)
+         # Save image
+        try:
+            img_read = storage.open(self.image.name,"r")
+        except Exception:
+            
+            return None
+        
         img = Image.open(img_read) # Open image using self
 
         # Resize the image to 140x140 maximum
@@ -39,5 +45,6 @@ class Imager(models.Model):
 
             imager = Imager.objects.get(pk=self.pk)
             imager.image.save(self.image.name,ContentFile(imageBuffer.getvalue()))
-
+        
+        
    
