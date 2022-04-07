@@ -1,8 +1,18 @@
-import os
+from pathlib import Path
 
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+SECRET_KEY = "os.environ.get('SECRET_KEY')"
 
-ALLOWED_HOSTS = []
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+ALLOWED_HOSTS = ['localhost']
+MEDIA_ROOT = BASE_DIR/'media/'

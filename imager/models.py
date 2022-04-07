@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 import uuid
-import datetime
+
 
 #upload image with unique filename according to user
 def userPath(instance, filename):
