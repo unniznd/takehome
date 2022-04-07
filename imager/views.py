@@ -22,18 +22,18 @@ class ImagerView(ListAPIView):
     pagination_class = ImagerPagination
 
     def get(self,request, id = None,*args,**kwars):
-        
+        return Response("Hello")
 
-        if id:
-            imager = Imager.objects.filter(user=request.user,id=id)
-            imagerSerializer = ImagerSerializer(imager,many=True)
+        # if id:
+        #     imager = Imager.objects.filter(user=request.user,id=id)
+        #     imagerSerializer = ImagerSerializer(imager,many=True)
             
-            return Response(imagerSerializer.data,status=status.HTTP_200_OK)
+        #     return Response(imagerSerializer.data,status=status.HTTP_200_OK)
        
-        imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
+        # imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
         
-        imagerSerializer = ImagerSerializer(imager,many=True)
-        return self.get_paginated_response(imagerSerializer.data)
+        # imagerSerializer = ImagerSerializer(imager,many=True)
+        # return self.get_paginated_response(imagerSerializer.data)
     
     #Accept post request
     #Return id of upload
