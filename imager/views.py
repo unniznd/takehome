@@ -4,8 +4,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
-from rest_framework.decorators import api_view
+
 
 from django.http import HttpResponse
 
@@ -16,24 +15,8 @@ from imager.serializer import ImagerSerializer
 
 
 class ImagerView(ListAPIView):
-    query_set = Imager.objects.all()
     serializer_class = ImagerSerializer
     permission_classes = (IsAuthenticated,) 
-    pagination_class = ImagerPagination
-
-    def get(self,request, id = None,*args,**kwars):
-        return Response("Hello")
-
-        # if id:
-        #     imager = Imager.objects.filter(user=request.user,id=id)
-        #     imagerSerializer = ImagerSerializer(imager,many=True)
-            
-        #     return Response(imagerSerializer.data,status=status.HTTP_200_OK)
-       
-        # imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
-        
-        # imagerSerializer = ImagerSerializer(imager,many=True)
-        # return self.get_paginated_response(imagerSerializer.data)
     
     #Accept post request
     #Return id of upload
@@ -51,26 +34,23 @@ class ImagerView(ListAPIView):
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-@permission_classes((IsAuthenticated, ))
-def mediaAccess(request,userId,fileName):
-    if request.user.id == userId:
-        path = "media/"+str(userId)+"/"+fileName
+class GetImagerView(ListAPIView):
+    query_set = Imager.objects.all()
+    serializer_class = ImagerSerializer
+    permission_classes = (IsAuthenticated,) 
+    pagination_class = ImagerPagination
 
-        try:
-            with open(path,'rb') as file:
-                image = file.read()
+    def get(self,request, id = None,*args,**kwars):
+        if id:
+            imager = Imager.objects.filter(user=request.user,id=id)
+            imagerSerializer = ImagerSerializer(imager,many=True)
             
-            response = HttpResponse(image, content_type='image/jpeg')
-            
-        except IOError:
+            return Response(imagerSerializer.data,status=status.HTTP_200_OK)
+       
+        imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
         
-            response = Response({"error":"No such image"},status=status.HTTP_404_NOT_FOUND)
-
-        return response
-    
-    
-    return Response({"error":"Unauthorized for this image"},status=status.HTTP_401_UNAUTHORIZED)
+        imagerSerializer = ImagerSerializer(imager,many=True)
+        return self.get_paginated_response(imagerSerializer.data)
 
 
 class Login(ObtainAuthToken):
