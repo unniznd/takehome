@@ -22,7 +22,7 @@ class ImagerView(ListAPIView):
     pagination_class = ImagerPagination
 
     def get(self,request, id = None):
-        print("get called")
+        
 
         if id:
             imager = Imager.objects.filter(user=request.user,id=id)
@@ -31,6 +31,7 @@ class ImagerView(ListAPIView):
             return Response(imagerSerializer.data,status=status.HTTP_200_OK)
             
         imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
+        print("get called")
         imagerSerializer = ImagerSerializer(imager,many=True)
 
         return self.get_paginated_response(imagerSerializer.data,)
