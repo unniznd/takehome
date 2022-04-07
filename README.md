@@ -98,7 +98,10 @@ The response format is
 }
 ```
 
-To fetch all images send GET request to ``` add/ ```
+
+## image/
+
+To fetch all images send GET request to ``` image/ ```
 
 ### Request format
 
@@ -127,10 +130,10 @@ The response format will be set of these format
 ### Note : The response is paginated, header contains the link to previous and next page
 
 
-## add/<id_here>/
+## image/<id_here>/
 
 
-To fetch a specific image, send GET request to ``` add/<id_here>/ ```
+To fetch a specific image, send GET request to ``` image/<id_here>/ ```
 
 ### Request format
 
