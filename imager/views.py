@@ -44,6 +44,7 @@ class ImagerView(ListAPIView):
                 'request': request
             }
         )
+        print(request.data)
         postData.is_valid()
         postData.save()
         if postData.is_valid():

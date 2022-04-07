@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.files.storage import default_storage as storage 
 from django.core.files.base import ContentFile
 
-from cloudinary import models as cloudinaryModels
+
 from io import BytesIO
 from PIL import Image
 import uuid
@@ -19,7 +19,7 @@ class Imager(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = cloudinaryModels.CloudinaryField(upload_to=userPath)
+    image = models.ImageField(upload_to=userPath)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
