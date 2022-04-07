@@ -4,6 +4,10 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+from rest_framework.decorators import api_view
+
+from django.http import HttpResponse
 
 from imager.pagination import ImagerPagination
 from imager.models import Imager
@@ -47,6 +51,28 @@ class ImagerView(ListAPIView):
             return Response({"id":p.id},status=status.HTTP_201_CREATED)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def mediaAccess(request,userId,fileName):
+    if request.user.id == userId:
+        path = "media/"+str(userId)+"/"+fileName
+        print(path)
+
+        try:
+            with open(path,'rb') as file:
+                image = file.read()
+            
+            response = HttpResponse(image, content_type='image/jpeg')
+            
+        except IOError:
+        
+            response = Response({"error":"No such image"},status=status.HTTP_404_NOT_FOUND)
+
+        return response
+    
+    
+    return Response({"error":"Unauthorized for this image"},status=status.HTTP_401_UNAUTHORIZED)
 
 
 class Login(ObtainAuthToken):
