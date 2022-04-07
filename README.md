@@ -33,7 +33,7 @@ python3 manage.py migrate
 
 Obtain the authentication token by POST request to ``` login/ ```
 
-## Request format
+### Request format
 
 Header
 ``` 
@@ -66,7 +66,7 @@ The response format is
 
 To add image, name and description POST request to ```add/```
 
-## Request format
+### Request format
 
 Header
 ``` 
@@ -98,7 +98,7 @@ The response format is
 
 To fetch all images send GET request to ``` add/ ```
 
-## Request format
+### Request format
 
 Header
 ``` 
@@ -130,7 +130,7 @@ The response format will be set of these format
 
 To fetch a specific image, send GET request to ``` add/<id_here>/ ```
 
-## Request format
+### Request format
 
 Header
 ``` 
