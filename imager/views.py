@@ -30,10 +30,10 @@ class ImagerView(ListAPIView):
             
             return Response(imagerSerializer.data,status=status.HTTP_200_OK)
        
-        imager = Imager.objects.filter(user=request.user).order_by('-date','-time')
+        imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
         
         imagerSerializer = ImagerSerializer(imager,many=True)
-        return Response(imagerSerializer.data)
+        return self.get_paginated_response(imagerSerializer.data)
     
     #Accept post request
     #Return id of upload
