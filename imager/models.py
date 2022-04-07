@@ -25,6 +25,7 @@ class Imager(models.Model):
 
 
     def save(self, *args, **kwargs):
+        print(self.image)
         super(Imager, self).save(*args, **kwargs) # Save image
         img_read = storage.open(self.image.name,"r")
         img = Image.open(img_read) # Open image using self
