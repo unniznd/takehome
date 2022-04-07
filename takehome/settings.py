@@ -5,12 +5,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False
+DEBUG = True
 
-if DEBUG:
-    from .dev_settings import *
-else:
-    from .prod_settings import *
+# if DEBUG:
+#     from .dev_settings import *
+# else:
+from .prod_settings import *
 
 
 # Application definition
