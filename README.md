@@ -2,7 +2,7 @@
 
 This is a simple django backend which helps the users to upload images with specific name and description and fetch them
 
-## Prerequiesties
+## Prerequisites
 
 * Python version 3.7+ downloaded from [here](https://python.org)
 * Pip packages in ``` requirements.txt ```
