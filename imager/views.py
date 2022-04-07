@@ -22,6 +22,7 @@ class ImagerView(ListAPIView):
     pagination_class = ImagerPagination
 
     def get(self,request, id = None):
+        print("get called")
 
         if id:
             imager = Imager.objects.filter(user=request.user,id=id)
