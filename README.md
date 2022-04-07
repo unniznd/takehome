@@ -14,7 +14,9 @@ This is a simple django backend which helps the users to upload images with spec
 * Download latest python from [here](https://python.org)
 * Install pip packages using the command
 
-``` pip install -r requirements.txt ```
+``` 
+pip install -r requirements.txt 
+```
 
 * Configure development settings as mentioned in ``` takehome/README.md ```
 * Make migrations using the command
