@@ -138,8 +138,7 @@ To fetch a specific image, send GET request to ``` add/<id_here>/ ```
 
 ### Response
 
-The response format will be set of these format
-
+The response format is
 ```
 {
     "name" : "name_here",
