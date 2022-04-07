@@ -23,7 +23,7 @@ This is a simple django backend which helps the users to upload images with spec
 python3 manage.py makemigrations
 python3 manage.py migrate
 ```
-
+* Set ```DEBUG = False ``` in ```settings.py ```
 * Start server ``` python3 manage.py runserver ```
 
 
