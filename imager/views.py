@@ -29,14 +29,12 @@ class ImagerView(ListAPIView):
             imagerSerializer = ImagerSerializer(imager,many=True)
             
             return Response(imagerSerializer.data,status=status.HTTP_200_OK)
-        try: 
-            imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
-            
-            imagerSerializer = ImagerSerializer(imager,many=True)
-            return self.get_paginated_response(imagerSerializer.data)
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
+       
+        imager = self.paginate_queryset(Imager.objects.filter(user=request.user).order_by('-date','-time'))
+        
+        imagerSerializer = ImagerSerializer(imager,many=True)
+        return self.get_paginated_response(imagerSerializer.data)
+    
     #Accept post request
     #Return id of upload
     def post(self,request, *args, **kwargs):
