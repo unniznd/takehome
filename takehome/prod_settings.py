@@ -1,7 +1,8 @@
 from pathlib import Path
 import os
 import json
-
+import cloudinary
+import cloudinary_storage
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
