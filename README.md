@@ -35,14 +35,14 @@ Obtain the authentication token by POST request to ``` login/ ```
 
 ## Request format
 
-### header
+Header
 ``` 
 {
     "content-type" : "application/json"
 } 
 ```
 
-### body
+Body
 
 ```
 {
@@ -68,7 +68,7 @@ To add image, name and description POST request to ```add/```
 
 ## Request format
 
-### header
+Header
 ``` 
 {
     "content-type" : "application/json"
@@ -76,7 +76,7 @@ To add image, name and description POST request to ```add/```
 } 
 ```
 
-### body
+Body
 
 ```
 {
@@ -98,7 +98,9 @@ The response format is
 
 To fetch all images send GET request to ``` add/ ```
 
-### header
+## Request format
+
+Header
 ``` 
 {
     "content-type" : "application/json"
@@ -128,7 +130,9 @@ The response format will be set of these format
 
 To fetch a specific image, send GET request to ``` add/<id_here>/ ```
 
-### header
+## Request format
+
+Header
 ``` 
 {
     "content-type" : "application/json"
