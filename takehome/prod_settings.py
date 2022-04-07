@@ -28,6 +28,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get("API_KEY"),
     'API_SECRET': os.environ.get("API_SECRET"),
 }
+CSRF_TRUSTED_ORIGINS = ["https://takehomeimager.herokuapp.com"]
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
