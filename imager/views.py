@@ -34,7 +34,7 @@ class ImagerView(ListAPIView):
         
         imagerSerializer = ImagerSerializer(imager,many=True)
         print(imagerSerializer.data)
-        return self.get_paginated_response(imagerSerializer.data,)
+        return Response(imagerSerializer.data)
 
 
     #Accept post request
